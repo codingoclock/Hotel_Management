@@ -14,6 +14,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Builder
 public class Insurance {
 
     @Id
@@ -33,6 +34,7 @@ public class Insurance {
     @Column(nullable = false,updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "insurance") //inverse Side relation (owning side is Patient)
+    @OneToOne(mappedBy = "insurance")  //inverse side relation
+    @ToString.Exclude    //To print in a string, not a lazy alternative, which causes lazyness, after the persistence context is finished and out of a transaction.
     private Patient patient;
 }

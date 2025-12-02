@@ -3,6 +3,7 @@ package com.prakharSinghJPA.Hotel_Management;
 import com.prakharSinghJPA.Hotel_Management.dto.GenderCountResponseEntity;
 import com.prakharSinghJPA.Hotel_Management.entity.Patient;
 import com.prakharSinghJPA.Hotel_Management.repository.PatientRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,7 @@ public class PatientTest {
     public PatientRepository patientRepository;
 
     @Test
+    @Transactional
     public void findPatients(){
         List<Patient> patientList = patientRepository.findAll();
         System.out.println(patientList);

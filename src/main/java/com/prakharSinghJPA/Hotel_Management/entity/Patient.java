@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -48,8 +49,13 @@ public class Patient {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "patient_insurance_id") //owning side
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "patient_insurance_id") //owning side for insurance.
     private Insurance insurance;
+
+    //To make it a bi-directional mapping wrt appointment;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY) //reverse Side for the Appointment
+    @ToString.Exclude   //LAZY BY DEFAULT IN JPA, to exclude it
+    private List<Appointment> appointment;
 
 }
